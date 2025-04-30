@@ -12,11 +12,12 @@ dependencies = [
     "uvicorn>=0.28.0",
     "sqlalchemy[asyncio] (>=2.0.40,<3.0.0)",
     "alembic>=1.13.1",
-    "pydantic>=2.6.0",
+    "pydantic[email] (>=2.11.4,<3.0.0)",
     "python-dotenv>=1.0.0",
     "pydantic-settings>=2.2.0",
     "pgvector (>=0.4.1,<0.5.0)",
-    "asyncpg (>=0.30.0,<0.31.0)"
+    "asyncpg (>=0.30.0,<0.31.0)",
+    "structlog (>=25.3.0,<26.0.0)"
 ]
 
 [tool.poetry]
