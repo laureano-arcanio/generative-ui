@@ -458,6 +458,24 @@ files = [
 ]
 
 [[package]]
+name = "passlib"
+version = "1.7.4"
+description = "comprehensive password hashing framework supporting over 30 schemes"
+optional = false
+python-versions = "*"
+groups = ["main"]
+files = [
+    {file = "passlib-1.7.4-py2.py3-none-any.whl", hash = "sha256:aa6bca462b8d8bda89c70b382f0c298a20b5560af6cbfa2dce410c0a2fb669f1"},
+    {file = "passlib-1.7.4.tar.gz", hash = "sha256:defd50f72b65c5402ab2c573830a6978e5f202ad0d984793c8dde2c4152ebe04"},
+]
+
+[package.extras]
+argon2 = ["argon2-cffi (>=18.2.0)"]
+bcrypt = ["bcrypt (>=3.1.0)"]
+build-docs = ["cloud-sptheme (>=1.10.1)", "sphinx (>=1.6)", "sphinxcontrib-fulltoc (>=1.2.0)"]
+totp = ["cryptography"]
+
+[[package]]
 name = "pgvector"
 version = "0.4.1"
 description = "pgvector support for Python"
@@ -791,6 +809,18 @@ tests = ["freezegun (>=0.2.8)", "pretend", "pytest (>=6.0)", "pytest-asyncio (>=
 typing = ["mypy (>=1.4)", "rich", "twisted"]
 
 [[package]]
+name = "types-passlib"
+version = "1.7.7.20250408"
+description = "Typing stubs for passlib"
+optional = false
+python-versions = ">=3.9"
+groups = ["main"]
+files = [
+    {file = "types_passlib-1.7.7.20250408-py3-none-any.whl", hash = "sha256:04cec96e438e1cf5d0440b1e31123abab1844f5293f8350c8d6d787bd00c46e6"},
+    {file = "types_passlib-1.7.7.20250408.tar.gz", hash = "sha256:7db7cb394658b194b0b252f87bcedf57fdc2b494c203c8a8d80e81d3b26516ae"},
+]
+
+[[package]]
 name = "typing-extensions"
 version = "4.13.2"
 description = "Backported and Experimental Type Hints for Python 3.8+"
@@ -839,4 +869,4 @@ standard = ["colorama (>=0.4) ; sys_platform == \"win32\"", "httptools (>=0.6.3)
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.12"
-content-hash = "5a009b7c53e8d55f2a03b04385312950c21a20b64baf6e916506a3013731d09c"
+content-hash = "4e3ffa79aa40ad7ec0713b25b48033c586857d65529a0f550a3fdb23fea8505d"

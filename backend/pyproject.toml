@@ -17,7 +17,9 @@ dependencies = [
     "pydantic-settings>=2.2.0",
     "pgvector (>=0.4.1,<0.5.0)",
     "asyncpg (>=0.30.0,<0.31.0)",
-    "structlog (>=25.3.0,<26.0.0)"
+    "structlog (>=25.3.0,<26.0.0)",
+    "passlib (>=1.7.4,<2.0.0)",
+    "types-passlib (>=1.7.7.20250408,<2.0.0.0)"
 ]
 
 [tool.poetry]

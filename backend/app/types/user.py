@@ -6,7 +6,6 @@ from typing_extensions import Self
 from app.types.enum.user_enum import UserRolesEnum
 
 class UserOptional(BaseAPISchema):
-    id: str | None = None
     email: EmailStr | None = None
     first_name: str | None = None
     last_name: str | None = None
@@ -25,8 +24,9 @@ class UserBase(UserOptional):
     # updated_at: datetime
 
 
-class UserCreate(UserOptional):
+class UserCreate(UserBase):
     password: str | None = Field(default=None, exclude=True)
+    hashed_password: str | None = Field(default=None)
 
 
 class UserUpdate(UserOptional):
