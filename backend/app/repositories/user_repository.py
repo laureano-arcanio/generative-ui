@@ -1,6 +1,5 @@
 import structlog
 from sqlalchemy import select
-from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models import User
 
@@ -60,9 +59,24 @@ class UserRepository(
         result = await self.db_session.execute(query)
         user = result.scalars().first()
         
-        if not user:
+        if user is None:
             return None
-            
+
         return self.base_schema.model_validate(user)
+    
+    async def create_with_hashed_password(self, create_schema: UserCreate, hashed_password: str) -> UserBase:
+        """
+        Create a new instance of the model.
+
+        Args:
+            create_schema: The validated create schema containing the data
+
+        Returns:
+            The created instance converted to base schema type
+        """
+        db_instance = self.model(**create_schema.model_dump(), hashed_password=hashed_password)
+        self.db_session.add(db_instance)
+        await self.db_session.flush()
+        return self.base_schema.model_validate(db_instance)
 
 

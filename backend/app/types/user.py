@@ -20,13 +20,10 @@ class UserBase(UserOptional):
     first_name: str
     last_name: str
     role: UserRolesEnum = UserRolesEnum.user
-    # created_at: datetime
-    # updated_at: datetime
 
 
 class UserCreate(UserBase):
     password: str | None = Field(default=None, exclude=True)
-    hashed_password: str | None = Field(default=None)
 
 
 class UserUpdate(UserOptional):
