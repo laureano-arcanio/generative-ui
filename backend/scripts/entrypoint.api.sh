@@ -3,7 +3,7 @@
 # Entrypoint script for the API service
 if [ "$ENVIRONMENT" == "local" ]; then
     poetry run alembic upgrade head
-    poetry run sh -c "uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
+    poetry run python -m debugpy  --listen 0.0.0.0:5678 -m uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 elif [ "$ENVIRONMENT" == "test" ]; then
     poetry run alembic upgrade head
     

@@ -1,3 +1,9 @@
+make run-local:
+	@echo "Running local environment..."
+	export DATABASE_URL="postgresql+asyncpg://dev-user:password@localhost:5432/dev_db"
+	cd backend && \
+	poetry run sh -c "uvicorn app.main:app --host localhost --port 8000 --reload"
+
 run:
 	docker compose --profile local up --force-recreate
 
@@ -16,3 +22,9 @@ generate-migration:
 		exit 1; \
 	fi
 	docker compose exec backend poetry run alembic revision --autogenerate -m "$(filter-out $@,$(MAKECMDGOALS))"
+
+
+
+make run-db:
+	@echo "Running database..."
+	docker compose up postgres
