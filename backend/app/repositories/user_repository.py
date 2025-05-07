@@ -9,7 +9,6 @@ from app.types.user import (
     UserCreate,
     UserDetail,
     UserUpdate,
-    UserDetailList
 )
 
 logger = structlog.stdlib.get_logger(__name__)
@@ -20,7 +19,7 @@ class UserRepository(
         User,
         UserBase,
         UserDetail,
-        UserDetailList,
+        UserDetail,
         UserCreate,
         UserUpdate,
     ]
@@ -37,7 +36,7 @@ class UserRepository(
     detail_schema = UserDetail
     """UserDetail schema for detailed view"""
 
-    list_schema = UserDetailList
+    list_schema = UserDetail
     """UserDetail schema for list operations"""
 
     detail_options = []

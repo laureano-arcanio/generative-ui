@@ -3,7 +3,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import HTTPException, status
 from passlib.context import CryptContext
 
-from app.types.user import UserBase, UserCreate
+from app.types.user import UserBase, UserCreate, UserDetail
 from app.repositories.user_repository import UserRepository
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -24,6 +24,15 @@ class UserService:
         """
         self.db_session = db_session
         self.user_repository = UserRepository(db_session)
+
+    async def get_users(self) -> list[UserDetail]:
+        """Retrieve all users from the database.
+
+        Returns:
+            list[UserBase]: List of users without sensitive data
+        """
+        return await self.user_repository.get_all()
+
 
     async def get_user_by_email(self, email: str) -> UserBase | None:
         """Retrieve a user by their email address.

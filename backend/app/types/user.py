@@ -10,6 +10,7 @@ class UserOptional(BaseAPISchema):
     first_name: str | None = None
     last_name: str | None = None
     role: UserRolesEnum = UserRolesEnum.user
+    active: bool | None = None
     created_at: datetime | None = None
     updated_at: datetime | None = None
 
@@ -20,6 +21,7 @@ class UserBase(UserOptional):
     first_name: str
     last_name: str
     role: UserRolesEnum = UserRolesEnum.user
+    active: bool
 
 
 class UserCreate(UserBase):
@@ -50,5 +52,3 @@ class UserUpdate(UserOptional):
 class UserDetail(UserBase):
     pass
 
-class UserDetailList(UserBase):
-    pass

@@ -9,13 +9,12 @@ import jwt
 from datetime import datetime, timedelta, timezone
 
 from app.dependencies.services import UserServiceDependency
-from app.types.user import UserDetail, UserBase
+from app.types.user import UserBase
 from app.types.auth import TokenData, Token
 from app.config import settings
 from app.models import User
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl=f"{settings.API_V1_STR}/auth/token")
-# Password hashing setup
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 def create_access_token(data: dict, expires_delta: timedelta | None = None):
@@ -24,6 +23,7 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
         expire = datetime.now(timezone.utc) + expires_delta
     else:
         expire = datetime.now(timezone.utc) + timedelta(minutes=15)
+
     to_encode.update({"exp": expire})
     encoded_jwt = jwt.encode(to_encode, settings.AUTH_SECRET_KEY, algorithm=settings.AUTH_ALGORITHM)
     return encoded_jwt
@@ -55,14 +55,6 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)], user_s
     return user
 
 
-async def get_current_active_user(
-    current_user: Annotated[UserDetail, Depends(get_current_user)],
-):
-    # TODO implement user status check
-    # if current_user.disabled:
-    #     raise HTTPException(status_code=400, detail="Inactive user")
-    return current_user
-
 async def login(form_data: OAuth2PasswordRequestForm, user_service: UserServiceDependency) -> Token:
     query = select(User).where(User.email == form_data.username)
     result = await user_service.db_session.execute(query)
@@ -74,6 +66,10 @@ async def login(form_data: OAuth2PasswordRequestForm, user_service: UserServiceD
             detail="Incorrect username or password",
             headers={"WWW-Authenticate": "Bearer"},
         )
+    
+    if not user.active:
+        raise HTTPException(status_code=400, detail="Inactive user")
+
     
     if not pwd_context.verify(form_data.password, user.hashed_password):
         raise HTTPException(status_code=400, detail="Incorrect password")
