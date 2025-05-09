@@ -6,6 +6,7 @@ WORKDIR /app
 
 # Remove existing node_modules
 RUN rm -rf node_modules
+RUN rm -rf .vite
 
 # Create node_modules directory
 RUN mkdir -p /app/node_modules

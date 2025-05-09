@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.dependencies.auth import get_current_user
 from app.config import settings
-from app.routers import user_router, auth_router
+from app.routers import user_router, auth_router, generative_router
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
@@ -20,8 +20,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(auth_router.router, prefix=settings.API_V1_STR)
 app.include_router(user_router.router, prefix=settings.API_V1_STR, dependencies=[Depends(get_current_user)])
+app.include_router(auth_router.router, prefix=settings.API_V1_STR)
+app.include_router(generative_router.router, prefix=settings.API_V1_STR)
 
 
 @app.get("/")

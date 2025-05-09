@@ -17,6 +17,8 @@ services:
     profiles:
       - local
       # - test
+    networks:
+      - ollama-docker
 
   # Frontend React application
   frontend:
@@ -52,6 +54,24 @@ services:
     profiles:
       - local
 
+  # Ollama service
+  # ollama:
+  #   image: docker.io/ollama/ollama:latest
+  #   ports:
+  #     - 7869:11434
+  #   volumes:
+  #     - .:/code
+  #     - ./ollama/ollama:/root/.ollama
+  #   container_name: ollama
+  #   pull_policy: always
+  #   tty: true
+  #   restart: always
+  #   environment:
+  #     - OLLAMA_KEEP_ALIVE=24h
+  #     - OLLAMA_HOST=0.0.0.0
+  #   networks:
+  #     - ollama-docker
+
 volumes:
   db-data:
   # langfuse_postgres_data:
@@ -62,3 +82,7 @@ volumes:
   #   driver: local
   # langfuse_minio_data:
   #   driver: local
+
+networks:
+  ollama-docker:
+    external: false
